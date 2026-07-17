@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Query Results</title>
+</head>
+
+<body>
+
+<h1>ORM Query Results</h1>
+
+<hr>
+
+<h2>1. Courses with Instructor</h2>
+
+<ul>
+{% for course in courses %}
+    <li>
+        {{ course.title }}
+        -
+        {{ course.instructor.name }}
+    </li>
+{% endfor %}
+</ul>
+
+<hr>
+
+<h2>2. Students & Their Courses</h2>
+
+{% for student in students %}
+
+<h3>{{ student.user.username }}</h3>
+
+<ul>
+
+{% for enrollment in student.enrollments.all %}
+    <li>
+        {{ enrollment.course.title }}
+    </li>
+{% empty %}
+    <li>No Enrollments</li>
+{% endfor %}
+
+</ul>
+
+{% endfor %}
+
+<hr>
+
+<h2>3. Course Statistics</h2>
+
+<table border="1">
+
+<tr>
+    <th>Course</th>
+    <th>Average Rating</th>
+    <th>Total Enrollments</th>
+</tr>
+
+{% for course in course_stats %}
+
+<tr>
+
+<td>{{ course.title }}</td>
+
+<td>{{ course.average_rating }}</td>
+
+<td>{{ course.total_enrollments }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<hr>
+
+<h2>4. Top 5 Highest Rated Courses</h2>
+
+<ol>
+
+{% for course in top_courses %}
+
+<li>
+
+{{ course.title }}
+
+-
+
+{{ course.average_rating }}
+
+</li>
+
+{% endfor %}
+
+</ol>
+
+<hr>
+
+<h2>5. Raw SQL Result</h2>
+
+<table border="1">
+
+<tr>
+
+<th>Student ID</th>
+
+<th>Total Courses</th>
+
+</tr>
+
+{% for row in raw_sql %}
+
+<tr>
+
+<td>{{ row.0 }}</td>
+
+<td>{{ row.1 }}</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="2">
+
+No student enrolled in more than 3 courses.
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+
+</html>

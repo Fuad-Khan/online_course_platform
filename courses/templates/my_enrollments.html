@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Enrollments</title>
+</head>
+<body>
+
+<h2>My Enrollments</h2>
+
+<ul>
+
+{% for enrollment in enrollments %}
+
+<li>
+
+{{ enrollment.course.title }}
+
+-
+
+Completed:
+
+{{ enrollment.completed }}
+
+</li>
+
+{% empty %}
+
+<li>
+
+No enrollments found.
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+<a href="{% url 'logout' %}">
+Logout
+</a>
+
+</body>
+</html>
